@@ -1,16 +1,7 @@
-
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 name: GitHub Change Workflow with SNOW custom tasks
 on: workflow_dispatch
-#  pull_request_target:
-#    types:
-#      - closed
 jobs:
     build:
-        # Running your workflow when a pull request merges
-        # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-your-workflow-when-a-pull-request-merges-1
-        #if: github.event.pull_request.merged == true
         name: Build
         runs-on: ubuntu-latest
         steps:           
@@ -34,7 +25,6 @@ jobs:
                   key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
                   restore-keys: ${{ runner.os }}-m2
     test:
-        #if: github.event.pull_request.merged == true
         name: Test
         needs: build
         runs-on: ubuntu-latest
@@ -60,22 +50,20 @@ jobs:
             #      GITHUB_TOKEN: ${{ secrets.GHP_TOKEN }}  # Needed to get PR information, if any
             #      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
             #  run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=devops-test-repo
-            - name: Sonar Cloud Analysis
-              if: success() # always() failure() success()
-              run: >                  
-                mvn -B verify -DskipTests org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.organization=$SONAR_ORG_KEY -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GHP_TOKEN }}
-                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-                  SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-                  SONAR_URL: ${{ secrets.SONAR_URL }}
-                  SONAR_ORG_KEY: ${{ secrets.SONAR_ORG_KEY }}
+            # - name: Sonar Cloud Analysis
+            #   if: success() # always() failure() success()
+            #   run: >                  
+            #     mvn -B verify -DskipTests org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.organization=$SONAR_ORG_KEY -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN
+            #   env:
+            #       GITHUB_TOKEN: ${{ secrets.GHP_TOKEN }}
+            #       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            #       SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+            #       SONAR_URL: ${{ secrets.SONAR_URL }}
+            #       SONAR_ORG_KEY: ${{ secrets.SONAR_ORG_KEY }}
 #place sonar here
             #- name: Run JUnit Tests
             #  run: mvn test -Dmaven.test.failure.ignore=true surefire-report:report
             - name: ServiceNow DevOps Unit Test Results
-            # You may pin to the exact commit or the version.
-            # uses: ServiceNow/servicenow-devops-test-report@6c7ef85f6aedfb7ab17e4d17c52c14c5f2f455fd
               uses: ServiceNow/servicenow-devops-test-report@main
               with:
                   # Devops Integration User Name
@@ -95,8 +83,8 @@ jobs:
                                                                                   # if both JUnit & TestNG tests, use target/surefire-reports/testng-junit-results/testng-results.xml
                   # GitHub Custom Action
                   test-type: # optional, default is JUnit  
-    SonarTest:
-         name: Sonar stage
+    PostTest:
+         name: post test stage
          needs: test 
          runs-on: ubuntu-latest
          steps:
@@ -104,14 +92,11 @@ jobs:
               run: echo Completed Deployment
               
     deploy:
-        #if: github.event.pull_request.merged == true
         name: Deploy
-        needs: SonarTest
+        needs: PostTest
         runs-on: ubuntu-latest
         steps:     
             - name: ServiceNow DevOps Change Automation
-            # You may pin to the exact commit or the version.
-            # uses: ServiceNow/servicenow-devops-change@0f57435999463cc1dea44bde4f5eca9879474b85
               uses: ServiceNow/servicenow-devops-change@dev
               with:
                   # ServiceNow Instance URL
@@ -143,10 +128,8 @@ jobs:
                           "test_plan": "Testing if the software was successfully deployed"
                       }
                   }'
-#             - name: Run deployment scripts
-#               run: echo Completed Deployment
+
     postdeploy:
-        #if: github.event.pull_request.merged == true
         name: Post Deploy
         needs: deploy
         runs-on: ubuntu-latest
