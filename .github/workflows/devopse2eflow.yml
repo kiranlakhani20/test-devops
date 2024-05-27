@@ -16,7 +16,7 @@ jobs:
 
               # Use composite action
             - name: Using devops composite action e2e
-              uses: kiranlakhani20/CompositeActionRepo@v1
+              uses: kiranlakhani20/CompositeActionRepo@v2
               with:
                   devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
                   devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
