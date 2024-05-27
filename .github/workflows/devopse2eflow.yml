@@ -38,7 +38,7 @@ jobs:
 
               # Use composite action
             - name: call-composite-action-test
-              uses: kiranlakhani20/CompositeActionRepo@v3
+              uses: kiranlakhani20/CompositeActionRepo@v4
               with:
                   devops-integration-user-name: ${{ inputs.devops-integration-user-name }}
                   devops-integration-user-password: ${{ inputs.devops-integration-user-password }}
