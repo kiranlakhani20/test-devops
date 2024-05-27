@@ -1,6 +1,8 @@
 
 name: Production DeploymentWorkflow
-on: workflow_dispatch
+on: 
+    workflow_dispatch:
+    workflow_call:
 jobs:
     build:
         name: Build
