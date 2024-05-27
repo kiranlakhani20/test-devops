@@ -1,8 +1,30 @@
 
 name: DevOps E2E Invoke composite action
 on: 
-    workflow_dispatch:
-    workflow_call:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      devops-integration-user-name: 
+        description: "The username for DevOps integration."
+        required: true
+        type: string
+      devops-integration-user-password:
+        description: "The pass for DevOps integration."
+        required: true
+        type: string
+      instance-url:
+        description: "The pass for DevOps integration."
+        required: true
+        type: string
+      tool-id:
+        description: "The pass for DevOps integration."
+        required: true
+        type: string    
+      context-github:
+        description: "The pass for DevOps integration."
+        required: true
+        type: string  
+       
 
 jobs:
     build:
@@ -18,11 +40,11 @@ jobs:
             - name: Using devops composite action e2e
               uses: kiranlakhani20/CompositeActionRepo@v3
               with:
-                  devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
-                  devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
-                  instance-url: ${{ secrets.SN_INSTANCE_URL }}
-                  tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
-                  context-github: ${{ toJSON(github) }}
+                  devops-integration-user-name: ${{ inputs.devops-integration-user-name }}
+                  devops-integration-user-password: ${{ inputs.devops-integration-user-password }}
+                  instance-url: ${{ inputs.instance-url }}
+                  tool-id: ${{ inputs.tool-id }}
+                  context-github: ${{ inputs.context-github }}
                   
               
           
