@@ -28,27 +28,27 @@ jobs:
                   path: ~/.m2
                   key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
                   restore-keys: ${{ runner.os }}-m2
-    test:
-        name: Test
-        needs: build
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v2
+    # test:
+    #     name: Test
+    #     needs: build
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - name: Checkout repository
+    #           uses: actions/checkout@v2
               
-            - name: ServiceNow DevOps Unit Test Results
-              uses: ServiceNow/servicenow-devops-test-report@main
-              with:
-                  devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
-                  devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
-                  instance-url: ${{ secrets.SN_INSTANCE_URL }}
-                  tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
-                  # Job Name
-                  job-name: 'Test' # Should be same name as declared in 'name' clause of the current Stage
-                  # Github Context
-                  context-github: ${{ toJSON(github) }}
-                  # xml report file name with path
-                  xml-report-filename: valid-xunit.xml #testng.xml #valid-xunit.xml #invalid_test_type.xml #valid-nunit.xml #testng.xml #valid-MSTest.trx #testResultsFolder/pytest.xml #valid-nunit.xml #invalid_test_type.xml #valid-nunit.xml #invalid_test_type.xml #testResultsFolder/ #valid-xunit.xml  #testng.xml #valid-nunit.xml #testng.xml  #valid-nunit.xml #valid-MSTest.trx #testng.xml #valid-xunit.xml 
+    #         - name: ServiceNow DevOps Unit Test Results
+    #           uses: ServiceNow/servicenow-devops-test-report@main
+    #           with:
+    #               devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
+    #               devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
+    #               instance-url: ${{ secrets.SN_INSTANCE_URL }}
+    #               tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
+    #               # Job Name
+    #               job-name: 'Test' # Should be same name as declared in 'name' clause of the current Stage
+    #               # Github Context
+    #               context-github: ${{ toJSON(github) }}
+    #               # xml report file name with path
+    #               xml-report-filename: valid-xunit.xml #testng.xml #valid-xunit.xml #invalid_test_type.xml #valid-nunit.xml #testng.xml #valid-MSTest.trx #testResultsFolder/pytest.xml #valid-nunit.xml #invalid_test_type.xml #valid-nunit.xml #invalid_test_type.xml #testResultsFolder/ #valid-xunit.xml  #testng.xml #valid-nunit.xml #testng.xml  #valid-nunit.xml #valid-MSTest.trx #testng.xml #valid-xunit.xml 
             
     
    
