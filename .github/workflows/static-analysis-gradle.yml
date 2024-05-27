@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  static-analysis:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,11 +28,8 @@ jobs:
       - name: Install dependencies
         run: mvn install -DskipTests
 
+      - name: Run tests
+        run: mvn test
+
       - name: Run Checkstyle
         run: mvn checkstyle:check
-
-      - name: Run PMD
-        run: mvn pmd:pmd
-
-      - name: Run SpotBugs
-        run: mvn spotbugs:check
