@@ -16,7 +16,7 @@ jobs:
 
               # Use composite action
             - name: Using devops composite action e2e
-              uses: github.com/kiranlakhani20/test-devops@dd97939b77c729948af4d65655205e64b7467694
+              uses: kiranlakhani20/test-devops@dd97939b77c729948af4d65655205e64b7467694
               with:
                   devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
                   devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
