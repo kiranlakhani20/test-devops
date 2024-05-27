@@ -1,5 +1,19 @@
 name: "FedEx composite action eg"
-description: "FedEx composite action eg steps are mentioned below"  # "description" should be lowercase
+description: "FedEx composite action eg steps are mentioned below"
+
+inputs:
+  devops-integration-user-name:
+    description: "The username for DevOps integration."
+    required: true
+  devops-integration-user-password:
+    description: "The password for DevOps integration."
+    required: true
+  instance-url:
+    description: "The URL of the ServiceNow instance."
+    required: true
+  tool-id:
+    description: "The ID of the Orchestration Tool."
+    required: true
 
 runs:
   using: 'composite'
@@ -8,23 +22,15 @@ runs:
       uses: actions/download-artifact@v4
 
     - name: ServiceNow DevOps Unit Test Results
-      uses: ServiceNow/servicenow-devops-test-report@main
+      uses: ServiceNow/servicenow-devops-test-report@v2.0.0
       with:
-        # Devops Integration User Name
-        devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
-        # Devops Integration User Password
-        devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
-        # ServiceNow Instance Name
-        instance-url: ${{ secrets.SN_INSTANCE_URL }}
-        # Orchestration Tool Id
-        tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
-        # Job Name
-        job-name: 'ServiceNow DevOps Unit Test Results'  # Should be same name as declared in 'name' clause of the current Stage
-        # Github Context
+        devops-integration-user-name: ${{ inputs.devops-integration-user-name }}
+        devops-integration-user-password: ${{ inputs.devops-integration-user-password }}
+        instance-url: ${{ inputs.instance-url }}
+        tool-id: ${{ inputs.tool-id }}
+        job-name: 'Test'
         context-github: ${{ toJSON(github) }}
-        # JUnit xml report file name with path
-        xml-report-filename: testng.xml  # if only JUnit tests, use target/surefire-reports/testng-results.xml
-                                                                          # if both JUnit & TestNG tests, use target/surefire-reports/testng-junit-results/testng-results.xml
+        xml-report-filename: target/surefire-reports/testng-results.xml
 
 
     # - name: Build change request payload
