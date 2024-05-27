@@ -35,7 +35,7 @@ jobs:
         run: mvn test
 
       - name: Check for FOSS compliance
-        run: mvn org.codehaus.mojo:license-maven-plugin:check
+        run: mvn license:check-file-header
 
       - name: Upload FOSS reports
         if: always()
