@@ -37,7 +37,7 @@ jobs:
               run: echo pretend to do something
 
               # Use composite action
-            - name: Using devops composite action e2e
+            - name: call-composite-action-test
               uses: kiranlakhani20/CompositeActionRepo@v3
               with:
                   devops-integration-user-name: ${{ inputs.devops-integration-user-name }}
