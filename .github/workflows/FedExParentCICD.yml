@@ -43,6 +43,15 @@ jobs:
     needs: [build, acceptance-tests]
     uses: kiranlakhani20/test-devops/.github/workflows/deployment-production.yml@master
 
+  call-composite-action:
+    needs: [deployment-production]
+    uses: kiranlakhani20/test-devops/.github/workflows/devopse2eflow.yml@master
+
+
+  
+    
+
+  
 
 
     
