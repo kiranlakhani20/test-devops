@@ -21,7 +21,7 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - nname: Build
+    - name: Build
         runs-on: ubuntu-latest
         steps:           
             - uses: actions/checkout@v2
