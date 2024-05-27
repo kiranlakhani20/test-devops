@@ -1,0 +1,48 @@
+name: FedExCICDParentWorkflow
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+jobs:
+  build:
+    name: build
+    uses: kiranlakhani20/test-devops/.github/workflows/build-gradle.yml@master
+
+  static-analysis:
+    needs: [build]
+    uses: kiranlakhani20/test-devops/.github/workflows/static-analysis-gradle.yml@master
+
+  service-tests:
+    needs: [build]
+    uses: kiranlakhani20/test-devops/.github/workflows/test-service.yml@master
+
+  deployment-dev:
+    needs: [static-analysis, service-tests]
+    uses: kiranlakhani20/test-devops/.github/workflows/deployment-nonproduction.yml@master
+
+  foss-requests:
+    needs: [deployment-dev]
+    if: github.ref != format('refs/heads/{0}', github.event.repository.default_branch)
+    uses: kiranlakhani20/test-devops/.github/workflows/foss-requests.yml@master
+
+  deployment-test:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    needs: [static-analysis, service-tests]
+    uses: kiranlakhani20/test-devops/.github/workflows/deployment-nonproduction.yml@master
+
+  acceptance-tests:
+    needs: [deployment-test]
+    uses: kiranlakhani20/test-devops/.github/workflows/test-acceptance.yml@master
+
+
+  deployment-production:
+    # This step *must* depend on `build` because the `unit-test-results` are used from that step.
+    needs: [build, acceptance-tests]
+    uses: kiranlakhani20/test-devops/.github/workflows/deployment-production.yml@master
+
+
+
+    
