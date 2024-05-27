@@ -1,5 +1,5 @@
 
-name: GitHub Actions Workflow with SNOW custom tasks
+name: DevOps E2E Invoke composite action
 on: 
     workflow_dispatch:
     workflow_call:
