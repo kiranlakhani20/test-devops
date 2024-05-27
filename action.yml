@@ -1,0 +1,8 @@
+name: "FedEx composite action eg"
+Description: "FedEx composite action eg steps are mentioned below"
+
+runs:
+using: 'composite'
+steps:
+  - name: Download Test Results
+    
