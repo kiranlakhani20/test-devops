@@ -2,6 +2,10 @@ name: FedExCICDParentWorkflow
 
 on:
   workflow_dispatch:
+  workflow_call: 
+    secrets:
+        SN_INSTANCE_URL: 
+          required: true
 
 concurrency:
   group: ${{ github.ref }}
