@@ -26,3 +26,11 @@ steps:
     xml-report-filename: target/surefire-reports/testng-results.xml # if only JUnit tests, use target/surefire-reports/testng-results.xml
                                                                     # if both JUnit & TestNG tests, use target/surefire-reports/testng-junit-results/testng-results.xml
 
+    # - name: Build change request payload
+    # id: build-change-payload
+    # uses: Fedex/eai-3538069-pdsm/devops-changes@main
+    
+    # - name: Open Change
+    # if: needs.compliance_ppm.outputs.skip-compliance != 'true' && steps.skip.outputs.skip-pdsm != 'true'
+    # id: open_pdsm_change
+    # uses: ServiceNow/servicenow-devops-change@v2.0.0
