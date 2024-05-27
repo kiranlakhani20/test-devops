@@ -1,0 +1,19 @@
+
+name: GitHub Actions Workflow with SNOW custom tasks
+on: workflow_dispatch
+
+jobs:
+    build:
+        name: Build
+        runs-on: ubuntu-latest
+        steps:           
+            - uses: actions/checkout@v2
+
+            - name: Do something
+              run: echo pretend to do something
+
+              # Use composite action
+            - name: Using devops composite action e2e
+              uses: kiranlakhani20/test-devops@master
+              
+          
