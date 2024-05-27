@@ -49,7 +49,7 @@ jobs:
     with: 
       devops-integration-user-name: 'devops.integration.user'
       devops-integration-user-password: 'Testing1!'
-      instance-url: 'https://empkiranv02.service-now.com/'
+      instance-url: ${{ secrets.SN_INSTANCE_URL }}
       tool-id: 'd17cce6f831e8214f55511e0deaad3a5'
       context-github: ${{ toJSON(github) }}
 
