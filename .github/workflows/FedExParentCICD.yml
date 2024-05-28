@@ -51,8 +51,8 @@ jobs:
     # needs: [deployment-production]
     uses: kiranlakhani20/test-devops/.github/workflows/devopse2eflow.yml@master
     with: 
-      devops-integration-user-name: '*********'
-      devops-integration-user-password: '***********'
+      devops-integration-user-name: 'devops.integration.user'
+      devops-integration-user-password: 'SNTesting1!Now'
       instance-url: 'https://empkiranv02.service-now.com/'
       tool-id: 'd17cce6f831e8214f55511e0deaad3a5'
       context-github: ${{ toJSON(github) }}
