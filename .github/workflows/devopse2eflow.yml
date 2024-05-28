@@ -43,7 +43,7 @@ jobs:
                   devops-integration-user-name: ${{ inputs.devops-integration-user-name }}
                   devops-integration-user-password: ${{ inputs.devops-integration-user-password }}
                   instance-url: ${{ inputs.instance-url }}
-                  job-name: 'Test'
+                  job-name: 'call-composite-action-test / Test'
                   tool-id: ${{ inputs.tool-id }}
                   context-github: ${{ inputs.context-github }}
                   
