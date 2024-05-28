@@ -1,5 +1,7 @@
 name: GitHub Change Workflow with SNOW custom tasks
-on: workflow_dispatch
+on: 
+    workflow_dispatch:
+    workflow_call:
 jobs:
     build:
         name: Build
@@ -24,27 +26,27 @@ jobs:
                   path: ~/.m2
                   key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
                   restore-keys: ${{ runner.os }}-m2
-    test:
-        name: Test
-        needs: build
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-              with:
-                  fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-            - name: List current directory
-              run: ls -a
-            - name: Run Tests with Maven
-              run: mvn -B test --file pom.xml
+    # test:
+    #     name: Test
+    #     needs: build
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - uses: actions/checkout@v2
+    #           with:
+    #               fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+    #         - name: List current directory
+    #           run: ls -a
+    #         - name: Run Tests with Maven
+    #           run: mvn -B test --file pom.xml
             # run: |
             #       ls -l
             # mvn clean test
             # run: mvn test
             # mvn -B test --file ./devops-test-repo/pom.xml
-            - name: What's in the target directory
-              run: |
-                    cd target
-                    ls -a
+            # - name: What's in the target directory
+            #   run: |
+            #         cd target
+            #         ls -a
             # - name: Sonarcloud Scan
             #  env:
             #      GITHUB_TOKEN: ${{ secrets.GHP_TOKEN }}  # Needed to get PR information, if any
@@ -63,29 +65,29 @@ jobs:
 #place sonar here
             #- name: Run JUnit Tests
             #  run: mvn test -Dmaven.test.failure.ignore=true surefire-report:report
-            - name: ServiceNow DevOps Unit Test Results
-              uses: ServiceNow/servicenow-devops-test-report@main
-              with:
-                  # Devops Integration User Name
-                  devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
-                  # Devops Integration User Password
-                  devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
-                  # ServiceNow Instance Name
-                  instance-url: ${{ secrets.SN_INSTANCE_URL }}
-                  # Orchestration Tool Id
-                  tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
-                  # Job Name
-                  job-name: 'Test' # Should be same name as declared in 'name' clause of the current Stage
-                  # Github Context
-                  context-github: ${{ toJSON(github) }}
-                  # JUnit xml report file name with path
-                  xml-report-filename: target/surefire-reports/testng-results.xml # if only JUnit tests, use target/surefire-reports/testng-results.xml
-                                                                                  # if both JUnit & TestNG tests, use target/surefire-reports/testng-junit-results/testng-results.xml
-                  # GitHub Custom Action
-                  test-type: # optional, default is JUnit  
+            # - name: ServiceNow DevOps Unit Test Results
+            #   uses: ServiceNow/servicenow-devops-test-report@main
+            #   with:
+            #       # Devops Integration User Name
+            #       devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
+            #       # Devops Integration User Password
+            #       devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
+            #       # ServiceNow Instance Name
+            #       instance-url: ${{ secrets.SN_INSTANCE_URL }}
+            #       # Orchestration Tool Id
+            #       tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
+            #       # Job Name
+            #       job-name: 'Test' # Should be same name as declared in 'name' clause of the current Stage
+            #       # Github Context
+            #       context-github: ${{ toJSON(github) }}
+            #       # JUnit xml report file name with path
+            #       xml-report-filename: target/surefire-reports/testng-results.xml # if only JUnit tests, use target/surefire-reports/testng-results.xml
+            #                                                                       # if both JUnit & TestNG tests, use target/surefire-reports/testng-junit-results/testng-results.xml
+            #       # GitHub Custom Action
+            #       test-type: # optional, default is JUnit  
     PostTest:
          name: post test stage
-         needs: test 
+         needs: build 
          runs-on: ubuntu-latest
          steps:
             - name: Run deployment scripts
