@@ -53,8 +53,8 @@ jobs:
     with: 
       devops-integration-user-name: 'devops.integration.user'
       devops-integration-user-password: 'Testing1!'
-      instance-url: 'https://empvkl01.service-now.com/'
-      tool-id: '15a332ff1b9e8610e67f86a3604bcb27'
+      instance-url: 'https://empkiranv02.service-now.com/'
+      tool-id: 'd17cce6f831e8214f55511e0deaad3a5'
       context-github: ${{ toJSON(github) }}
 
   # call-devops-change:
