@@ -2,6 +2,27 @@ name: GitHub Change Workflow with SNOW custom tasks
 on: 
     workflow_dispatch:
     workflow_call:
+        inputs:
+          devops-integration-user-name: 
+            description: "The username for DevOps integration."
+            required: true
+            type: string
+          devops-integration-user-password:
+            description: "The pass for DevOps integration."
+            required: true
+            type: string
+          instance-url:
+            description: "The pass for DevOps integration."
+            required: true
+            type: string
+          tool-id:
+            description: "The pass for DevOps integration."
+            required: true
+            type: string    
+          context-github:
+            description: "The pass for DevOps integration."
+            required: true
+            type: string  
 jobs:
     build:
         name: Build
@@ -102,17 +123,17 @@ jobs:
               uses: ServiceNow/servicenow-devops-change@dev
               with:
                   # ServiceNow Instance URL
-                  instance-url: ${{ secrets.SN_INSTANCE_URL }}
+                  instance-url: ${{ inputs.instance-url }}
                   # Devops Integration User Name
-                  devops-integration-user-name: ${{ secrets.SN_DEVOPS_USER }}
+                  devops-integration-user-name: ${{ inputs.devops-integration-user-name }}
                   # Devops Integration User Password
-                  devops-integration-user-password: ${{ secrets.SN_DEVOPS_PASSWORD }}
+                  devops-integration-user-password: ${{ inputs.devops-integration-user-password }}
                   # Orchestration Tool Id
-                  tool-id: ${{ secrets.SN_ORCHESTRATION_TOOL_ID }}
+                  tool-id: ${{ inputs.tool-id }}
                   # Display Name of the Job
                   job-name: 'Deploy'
                   # Github Context
-                  context-github: ${{ toJSON(github) }}
+                  context-github: ${{ inputs.context-github }}
                   # The max. time in seconds to wait until the action should fail.
                   timeout: 3600 # optional, default is 3600
                   # The time in seconds to wait between trying the API.
