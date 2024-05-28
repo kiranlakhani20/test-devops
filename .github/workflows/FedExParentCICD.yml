@@ -52,9 +52,9 @@ jobs:
     uses: kiranlakhani20/test-devops/.github/workflows/devopse2eflow.yml@master
     with: 
       devops-integration-user-name: 'devops.integration.user'
-      devops-integration-user-password: 'SNTesting1!Now'
-      instance-url: 'https://empkiranv02.service-now.com/'
-      tool-id: 'd17cce6f831e8214f55511e0deaad3a5'
+      devops-integration-user-password: 'Testing1!'
+      instance-url: 'https://empvkl01.service-now.com/'
+      tool-id: '15a332ff1b9e8610e67f86a3604bcb27'
       context-github: ${{ toJSON(github) }}
 
   # call-devops-change:
@@ -63,8 +63,8 @@ jobs:
   #   uses: kiranlakhani20/test-devops/.github/workflows/ChangeFlow.yml@master
   #   with: 
   #     devops-integration-user-name: 'devops.integration.user'
-  #     devops-integration-user-password: 'SNTesting1!Now'
-  #     instance-url: 'https://empkiranv02.service-now.com/'
+  #     devops-integration-user-password: 'Testing1!'
+  #     instance-url: 'https://empvkl01.service-now.com/'
   #     tool-id: 'd17cce6f831e8214f55511e0deaad3a5'
   #     context-github: ${{ toJSON(github) }}
 
