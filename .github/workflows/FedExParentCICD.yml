@@ -56,7 +56,6 @@ jobs:
       instance-url: 'https://avitokyo4.service-now.com/'
       tool-id: 'bad75aecc3fe42102893772ce00131ba'
       context-github: ${{ toJSON(github) }}
-      job-name: 'call-composite-action-test'
 
   # call-devops-change:
   #   # needs: [call-composite-action-test]
