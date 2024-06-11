@@ -47,26 +47,26 @@ jobs:
     needs: [build, acceptance-tests]
     uses: kiranlakhani20/test-devops/.github/workflows/deployment-production.yml@master
 
-  call-composite-action-test:
-    needs: [deployment-production]
-    uses: kiranlakhani20/test-devops/.github/workflows/devopse2eflow.yml@master
-    with: 
-      devops-integration-user-name: 'devops.integration.user'
-      devops-integration-user-password: 'Testing1!'
-      instance-url: 'https://avitokyo4.service-now.com/'
-      tool-id: 'bad75aecc3fe42102893772ce00131ba'
-      context-github: ${{ toJSON(github) }}
-
-  # call-devops-change:
-  #   # needs: [call-composite-action-test]
-  #   needs: [build]
-  #   uses: kiranlakhani20/test-devops/.github/workflows/ChangeFlow.yml@master
+  # call-composite-action-test:
+  #   needs: [deployment-production]
+  #   uses: kiranlakhani20/test-devops/.github/workflows/devopse2eflow.yml@master
   #   with: 
   #     devops-integration-user-name: 'devops.integration.user'
   #     devops-integration-user-password: 'Testing1!'
-  #     instance-url: 'https://empvkl01.service-now.com/'
-  #     tool-id: 'd17cce6f831e8214f55511e0deaad3a5'
+  #     instance-url: 'https://avitokyo4.service-now.com/'
+  #     tool-id: 'bad75aecc3fe42102893772ce00131ba'
   #     context-github: ${{ toJSON(github) }}
+
+  call-devops-change:
+    # needs: [call-composite-action-test]
+    needs: [build]
+    uses: kiranlakhani20/test-devops/.github/workflows/ChangeFlow.yml@master
+    with: 
+      devops-integration-user-name: 'devops.integration.user'
+      devops-integration-user-password: 'Testing1!'
+      instance-url: 'https://empvkl01.service-now.com/'
+      tool-id: 'd17cce6f831e8214f55511e0deaad3a5'
+      context-github: ${{ toJSON(github) }}
 
   
 
