@@ -59,7 +59,7 @@ jobs:
 
   call-devops-change:
     # needs: [call-composite-action-test]
-    needs: [build]
+    needs: [deployment-production]
     uses: kiranlakhani20/test-devops/.github/workflows/ChangeFlow.yml@master
     with: 
       devops-integration-token: 'DcMHit2SKjru5axFCC54gngVgWy2cJiA'
