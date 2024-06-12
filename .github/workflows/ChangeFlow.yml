@@ -3,14 +3,14 @@ on:
     workflow_dispatch:
     workflow_call:
         inputs:
-          devops-integration-user-name: 
+          devops-integration-token: 
             description: "The username for DevOps integration."
             required: true
             type: string
-          devops-integration-user-password:
-            description: "The pass for DevOps integration."
-            required: true
-            type: string
+          # devops-integration-user-password:
+          #   description: "The pass for DevOps integration."
+          #   required: true
+          #   type: string
           instance-url:
             description: "The pass for DevOps integration."
             required: true
