@@ -48,7 +48,7 @@ jobs:
                   # devops-integration-user-password: ${{ inputs.devops-integration-user-password }}
                   devops-integration-token: ${{ inputs.devops-integration-token }}
                   instance-url: ${{ inputs.instance-url }}
-                  # job-name: 'call-composite-action-test / Test'
+                  job-name: 'call-composite-action-test / Test'
                   tool-id: ${{ inputs.tool-id }}
                   context-github: ${{ inputs.context-github }}
                   
