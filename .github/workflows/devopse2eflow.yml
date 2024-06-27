@@ -4,14 +4,18 @@ on:
   workflow_dispatch:
   workflow_call:
     inputs:
-      devops-integration-user-name: 
-        description: "The username for DevOps integration."
+      devops-integration-token: 
+        description: "The token for DevOps integration tool."
         required: true
         type: string
-      devops-integration-user-password:
-        description: "The pass for DevOps integration."
-        required: true
-        type: string
+      # devops-integration-user-name: 
+      #   description: "The username for DevOps integration."
+      #   required: true
+      #   type: string
+      # devops-integration-user-password:
+      #   description: "The pass for DevOps integration."
+      #   required: true
+      #   type: string
       instance-url:
         description: "The pass for DevOps integration."
         required: true
@@ -38,10 +42,11 @@ jobs:
 
               # Use composite action
             - name: call-composite-action-test
-              uses: kiranlakhani20/CompositeActionRepo@v23
+              uses: kiranlakhani20/CompositeActionRepo@v24
               with:
-                  devops-integration-user-name: ${{ inputs.devops-integration-user-name }}
-                  devops-integration-user-password: ${{ inputs.devops-integration-user-password }}
+                  # devops-integration-user-name: ${{ inputs.devops-integration-user-name }}
+                  # devops-integration-user-password: ${{ inputs.devops-integration-user-password }}
+                  devops-integration-token: ${{ inputs.devops-integration-token }}
                   instance-url: ${{ inputs.instance-url }}
                   # job-name: 'call-composite-action-test / Test'
                   tool-id: ${{ inputs.tool-id }}
