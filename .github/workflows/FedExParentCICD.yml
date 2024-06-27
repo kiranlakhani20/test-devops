@@ -51,9 +51,9 @@ jobs:
     needs: [deployment-production]
     uses: kiranlakhani20/test-devops/.github/workflows/devopse2eflow.yml@master
     with: 
-      devops-integration-token: 'ierJgLhEoYTmyS2v5LmqKcV3HTNqXf5x'
+      devops-integration-token: 'rJ007XjkYiZvI9LgkmvteoG3zYIihdHL'
       instance-url: 'https://kingkong.service-now.com/'
-      tool-id: '599774c047cbc21029b8834c326d432e'
+      tool-id: '5d83b2e1478f4a1029b8834c326d43a4'
       context-github: ${{ toJSON(github) }}
 
   # call-devops-change:
